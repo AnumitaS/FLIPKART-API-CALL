@@ -28,10 +28,10 @@ function callAPI($method, $url, $data)
    // OPTIONS:
    curl_setopt($curl, CURLOPT_URL, $url);
    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-      'APIKEY: 2a983119bdb241c99be08de6aa60cf92',
+      'APIKEY: put your API key here',
       'Content-Type: application/json',
-	  'Fk-Affiliate-Id:samzonedis',
-	  'Fk-Affiliate-Token:2a983119bdb241c99be08de6aa60cf92'
+      'Fk-Affiliate-Id:write your affiliate ID here',
+      'Fk-Affiliate-Token:write your affiliate token id here'
 	  
    ));
    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -42,5 +42,8 @@ function callAPI($method, $url, $data)
    curl_close($curl);
    return $result;
 }
+
+
+
 
 ?>
