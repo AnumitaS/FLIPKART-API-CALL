@@ -23,10 +23,10 @@ function callAPI($method, $url, $data)
    // OPTIONS:
    curl_setopt($curl, CURLOPT_URL, $url);
    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-      'APIKEY: 2a983119bdb241c99be08de6aa60cf92',
+      'APIKEY: your api key',
       'Content-Type: application/json',
-	  'Fk-Affiliate-Id:samzonedis',
-	  'Fk-Affiliate-Token:2a983119bdb241c99be08de6aa60cf92'
+	  'Fk-Affiliate-Id:your affiliate id',
+	  'Fk-Affiliate-Token:api key'
 	  
    ));
    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
