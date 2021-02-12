@@ -1,8 +1,10 @@
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta chaset='utf-8'>
-<title>Flipkart Affiliate Api call</title>
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+<meta charset="utf-8">
+<title>Flipkart Api with Ajax call</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 
@@ -11,20 +13,68 @@ $(document).ready(function(){
 		
 		type : 'GET',
 		url : 'apicall.php',
-		data :' ',
-		success: function(result){$("#result").html(result)},
+		data :'json ',
+		success: function(result){$("#category").html(result)},
 		
 		
 		
 	});
+// triggering ajax call on select a category	
+	$('#category').change(function(){
+		var category = $(this).val();
+	    $.ajax({
+		
+		       type : 'post',
+		       url : 'apicall.php',
+		       data :{cat: category},
+		       success: function(result){$("#res").html(result)},	
+		
+	     });
+	});
 	
 });
 
+
+
+// from apicall.php result
+
 </script>
+<style>
+html, body{
+margin:0;
+padding:0;
+	
+}
+#category{
+margin:0px auto;
+width:300px;
+height:30px;
+
+}
+container{
+display:block;
+margin:0px auto; 
+width:90%;
+min-width:250px;
+text-align:center;
+}
+</style>
+
 </head>
 <body>
+<div style="marg:0; padding:0;width:100; height:150px; background:#3399ff; text-align:center; ">
+FLIPKART PRODUCTS
+</div>
+<container>
 
-<div id="result"> </div>
+<br><br>
+<select  id="category" name='category'> 
 
-</body>
+
+</select>
+
+<div id="res">
+</div>
+</container>
+</body> 
 </html>
