@@ -8,29 +8,85 @@
 <script>
 $(document).ready(function(){
 
-	//alert("MY JS is working");
+//loading the page with apicall.php initial result with selection category data from the apicall.php page
 	$.ajax({
 		
-		type : 'GET',
-		url : 'apicall.php',
-		data :'json ',
+		type   : 'GET',
+		url    : 'apicall.php',
+		data   : 'json ',
 		success: function(result){$("#category").html(result)},
 		
-		
-		
-	});
-// triggering ajax call on select a category	
+		});
+// triggering ajax call on selection of a category	
 	$('#category').change(function(){
+		
 		var category = $(this).val();
+	    $.ajax({
+		
+		       type      : 'post', //method
+		       url       : 'apicall.php', // this page will produce the result
+		       data      :{cat: category}, // this is the data what will be posted as $_POST['cat'] to the apicall.php page
+			   beforeSend: function(){ $("#loader").show();}, // showing the loading image
+		       success   : function(result){
+				                           // bellow results will be rendered if aja call is successfule and everything is okay
+				                           $("#res").html(result); // result from apicall.php wibb echoned in the #res id
+										   $("#next").css('visibility', 'visible'); //it will render the next button visibile
+										   $("#loader").hide(); // loader image will go away
+										   var i =0; // this new var i and value is zero
+										   $('#test').html(i); //putting the value of i into #test ,this is required for functioning of previous btn
+										 },	
+		
+	     });
+	});
+// this will triger if next button (>>) is clicked	
+	$('#next').click(function(){
+		var nextUrl = $('#nxt').text();// this will take the value from #next div and assign it as netUrl variable
+		
 	    $.ajax({
 		
 		       type : 'post',
 		       url : 'apicall.php',
-		       data :{cat: category},
-		       success: function(result){$("#res").html(result)},	
+		       data :{nextUrl: nextUrl},
+			   beforeSend: function(){
+                                       // Show image container
+                                         $("#loader").show();
+                                       },
+		       success: function(result){
+				                           
+				                           $("#res").html(result); 									   
+										   $("#loader").hide()
+										   if($("#nxt").text()==''){$("#next").css('visibility', 'hidden'); $("#res").text("No More Result");}
+										   var i = +$("#test").html()+1;// adding1 to current test field value;
+										   $("#test").html(i);
+										   if($("#test").html() >0){$('#prev').css('visibility', 'visible')}
+										 },	
 		
 	     });
 	});
+	
+		//anumita change
+		$('#prev').click(function(){
+		var prevUrl = $('#test').text();
+	    $.ajax({
+		
+		       type : 'post',
+		       url : 'apicall.php',
+		       data :{prevUrl: prevUrl},
+			   beforeSend: function(){
+                                       // Show image container
+                                         $("#loader").show();
+                                       },
+		       success: function(result){
+				                           $("#res").html(result); 
+				                           $("#loader").hide();
+										   var i = +$("#test").html()-1;
+										   $("#test").html(i);
+										   if($("#test").html() <=0){$('#prev').css('visibility', 'hidden')}
+										 },	
+		
+	     });
+	});
+	//change
 	
 });
 
@@ -58,6 +114,39 @@ width:90%;
 min-width:250px;
 text-align:center;
 }
+#next{
+visibility:hidden;
+width:30px;
+height:30px;
+border-radius:15px;
+background:none;
+padding:2px;
+}
+#prev{
+visibility:hidden;
+width:30px;
+height:30px;
+border-radius:15px;
+background:none;
+padding:2px;
+}
+
+
+#loader {
+	background-color: rgba(255, 0, 0, 0.3);
+    background: url('200.gif') no-repeat center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999999;
+}
+
+#test{
+	
+visibility:;	
+}
 </style>
 
 </head>
@@ -68,13 +157,23 @@ FLIPKART PRODUCTS
 <container>
 
 <br><br>
+<button id='prev' ><<</button>
 <select  id="category" name='category'> 
 
 
 </select>
+<button id='next' >>></button>
+<!-- Image loader -->
+<div id='loader' style='display: none;'>
 
-<div id="res">
 </div>
+<!-- Image loader -->
+<div id="test"></div>
+<div id="res">
+
+</div>
+
+
 </container>
 </body> 
 </html>
