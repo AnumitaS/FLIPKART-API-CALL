@@ -1,2 +1,1 @@
-https://affiliate-api.flipkart.net/affiliate/1.0/feeds/samzonedis/category/6bo-70k.json?expiresAt=1613441887025&sig=4a114839842d24ca8e8154af51951404&inStock=true
-https://affiliate-api.flipkart.net/affiliate/1.0/feeds/samzonedis/category/6bo-70k/5c2609d8e43a5edee07f305c.json?expiresAt=1613441887348&inStock=true&sig=a9b430fa1bbd3bd23768df52e3115227
+
